@@ -4,17 +4,17 @@ var app = express();
 const request = require('request');
 var schedule = require('node-schedule');
 const EventEmitter = require('events');
-var config = require("./dbconfig.json")
+var config = require("./dbconfig.json");
 
-var url = 'http://openapi.airport.co.kr/service/rest/FlightStatusList/getFlightStatusList?schIOType=O&schAirCode=GMP&serviceKey=b6LQXkCfnIJWE3r7gxDVqaOYCS7ljw9Ycyc%2FaZ8A3gSWuZ9rf8WFSHY%2FHK5NBpjnTwUQsMfX5tGfzgQvciNyEg%3D%3D&schStTime=1000&schEdTime=1800&schLineType=D&totalCount=5';
-
+var url = 'http://openapi.airport.co.kr/service/rest/FlightStatusList/getFlightStatusList?schIOType=O&schAirCode=GMP&serviceKey=b6LQXkCfnIJWE3r7gxDVqaOYCS7ljw9Ycyc%2FaZ8A3gSWuZ9rf8WFSHY%2FHK5NBpjnTwUQsMfX5tGfzgQvciNyEg%3D%3D&schStTime=1000&schEdTime=1800&schLineType=D&numOfRows=5';
 
 var MongoClient = require('mongodb').MongoClient;
 var mongoDbUrl = "mongodb://localhost:27017/";
 var dbHandler;
+//class Sampler extends EventEmitter{ }
+const sampler = new EventEmitter();
 
-class Sampler extends EventEmitter{ }
-const sampler = new Sampler();
+
 sampler.on("data-updated", function(records) {
     if( dbHandler ) {
         dbHandler.collection("test").insertMany( records, function(err, res){
@@ -30,9 +30,11 @@ sampler.on("data-updated", function(records) {
 
 createCollection(mongoDbUrl);
 
-schedule.scheduleJob('0,15,30,45 * * * * *', triggering);
+sampler.on('collection ready', function(){
+    schedule.scheduleJob('0,10,20,30,40,50 * * * * *', collector);
+});
 
-function triggering() {
+function collector() {
     request(url, {json:true}, (err, res, body) => {
         if (err) { return console.log(err); }
         var item = body.response.body.items.item, bucket = [];
@@ -50,11 +52,12 @@ function createCollection(dbUrl) {
     MongoClient.connect(dbUrl, function(err, db) {
         if (err) throw err;
         dbHandler = db.db(config.dbname);
-        dbHandler.createCollection("test", function(err, res) {
+        dbHandler.createCollection("GimpoJejuFlightStatus", function(err, res) {
             if( err ) {
                 throw err;
             } else {
-                console.log("collection created")
+                console.log("collection created");
+                sampler.emit('collection ready');
             }
 
         });

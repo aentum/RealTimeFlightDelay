@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 var express = require('express');
 var app = express();
-var config = require("./dbconfig.json")
+var config = require("./dbconfig.json");
 
 // Retrieve
 var MongoClient = require('mongodb').MongoClient;
@@ -12,7 +12,6 @@ var gCollection;
 MongoClient.connect(url, function(err, db) {
 	if (err) throw err;
     var dbase = db.db(config.dbname);
-	
 	dbase.createCollection('test', function(err, collection){   //make collection
 		if (err) throw err;
 		console.log("Collection created!");
@@ -25,15 +24,9 @@ MongoClient.connect(url, function(err, db) {
 
 	});
 });
+
+
 /*
-function BasicHandler extends EventEmitter {}  
-
-	var bh = new BasicHandler();
-	bh.on("update", function(collection) {
-
-	})
-/*
-
 app.get('/', function (req, res) {
 	console.log('bruce');
 	res.send('Hello World!');

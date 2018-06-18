@@ -1,3 +1,4 @@
 {
-    "dbname": "mydb"
+    "dbname": "mydb",
+    "db2" : "practiceNewDb"
 }
