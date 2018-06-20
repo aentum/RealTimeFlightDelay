@@ -17,7 +17,7 @@ const sampler = new EventEmitter();
 
 sampler.on("data-updated", function(records) {
     if( dbHandler ) {
-        dbHandler.collection("test").insertMany( records, function(err, res){
+        dbHandler.collection("GimpoJejuFlightStatus").insertMany( records, function(err, res){
             if(err) {
                 throw err;
             } else {
@@ -40,8 +40,10 @@ function collector() {
         var item = body.response.body.items.item, bucket = [];
         for (var key in item) {
             with (item[key]) {
+                if(arrivedEng === 'JEJU'){
                 var deltime = (Math.floor(etd/100)-Math.floor(std/100))*60 + (etd%100 - std%100);
-                bucket.push( { "airFln":airFln, "delayedMin":deltime, "status":rmkEng }  );
+                bucket.push( {"From":boardingEng, "Destination":arrivedEng, "airFln":airFln, "delayedMin":deltime, "status":rmkEng}  );
+                }
             }
         }
         sampler.emit("data-updated", bucket );
@@ -59,7 +61,6 @@ function createCollection(dbUrl) {
                 console.log("collection created");
                 sampler.emit('collection ready');
             }
-
         });
     });
 }

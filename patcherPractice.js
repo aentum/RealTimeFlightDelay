@@ -33,7 +33,7 @@ function collectionCreater(mongoDbUrl) {
         dbHandler = client.db(config.db2);
         dbHandler.createCollection("dataBin", function(err, res) {           //cb in cb?? 
             if (err) throw err;
-            console.log('collection created!')
+            console.log('collection created!');
             subscribeCron();
             messenger.emit('collection ready');
         });
