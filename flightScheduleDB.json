@@ -1,0 +1,23 @@
+[{
+        "flightNumber": "ZK420",
+        "date": 20180728,
+        "plannedDptTime": "12:34",
+        "dptAirport": "GMP",
+        "arrCity": "CJU"
+
+    },
+    {
+        "flightNumber": "KE038",
+        "date": 20180728,
+        "plannedDptTime": "16:15",
+        "dptAirport": "GMP",
+        "arrCity": "CJU"
+    },
+    {
+        "flightNumber": "OZ8924",
+        "date": 20180102,
+        "plannedDptTime": "8:20",
+        "dptAirport": "GMP",
+        "arrCity": "CJU"
+    }
+]

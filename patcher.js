@@ -4,8 +4,8 @@ const request = require('request');
 var schedule = require('node-schedule');
 const EventEmitter = require('events');
 var config = require("./dbconfig.json");
-
-var url = 'http://openapi.airport.co.kr/service/rest/FlightStatusList/getFlightStatusList?schIOType=O&schAirCode=GMP&serviceKey=b6LQXkCfnIJWE3r7gxDVqaOYCS7ljw9Ycyc%2FaZ8A3gSWuZ9rf8WFSHY%2FHK5NBpjnTwUQsMfX5tGfzgQvciNyEg%3D%3D&schStTime=1000&schEdTime=1800&schLineType=D&numOfRows=5';
+var serviceKey = null;
+var url = 'http://openapi.airport.co.kr/service/rest/FlightStatusList/getFlightStatusList?schIOType=O&schAirCode=GMP&serviceKey=' + serviceKey + '&schStTime=1000&schEdTime=1800&schLineType=D&numOfRows=5';
 //numOfRows may need adjustments. 
 
 var MongoClient = require('mongodb').MongoClient;

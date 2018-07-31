@@ -1,0 +1,23 @@
+[{
+        "flightNumber": "ZK420",
+        "date": 20180728,
+        "insuranceProvider": "AXA",
+        "premium": 500,
+        "payout": 1700
+    },
+    {
+        "flightNumber": "KE038",
+        "date": 20180728,
+        "insuranceProvider": "AIG",
+        "premium": 100,
+        "payout": 200
+
+    },
+    {
+        "flightNumber": "OZ8924",
+        "date": 20180102,
+        "insuranceProvider": "KB",
+        "premium": 1000,
+        "payout": 4000
+    }
+]
